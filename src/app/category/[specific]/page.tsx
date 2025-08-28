@@ -1,10 +1,12 @@
 'use client'
 
 import { IMeals } from "@/lib/interfaces";
+import { getSpecificCategory } from "@/services/apiMealDb";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
-let mealsData: IMeals;
+let mealsData: IMeals | null
 const Specific = ({ params }: { params: Promise<{ specific: string }> }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -12,18 +14,17 @@ const Specific = ({ params }: { params: Promise<{ specific: string }> }) => {
         const fetcher = async () => {
             setIsLoading(true);
             const { specific } = await params;
-            const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${specific}`);
-            const data = await res.json();
-            mealsData = data;
+            mealsData = await getSpecificCategory(specific);
+            console.log(mealsData);
             setIsLoading(false);
         }
         fetcher();
-    }, [])
+    }, [params])
 
     if (isLoading) return <div>is loading...</div>
     return (
         <div>
-            {mealsData && mealsData.meals.map(item => <p key={item.idMeal}>{item.strMeal}</p>)}
+            {mealsData && mealsData.meals?.map(item => <Link href={`/recipes/${item.idMeal}`} key={item.idMeal}>{item.strMeal}</Link>)}
         </div>
     )
 
