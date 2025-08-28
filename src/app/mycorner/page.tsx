@@ -1,8 +1,8 @@
 'use client'
 
 import { useUser } from "@/contexts/userContext";
-import { ICategories, IMeals, IRecipe } from "@/lib/interfaces";
-import { getAllCategories, getSpecificRecipe } from "@/services/apiMealDb";
+import { ICategories} from "@/lib/interfaces";
+import { getAllCategories } from "@/services/apiMealDb";
 import { useEffect, useState } from "react";
 import CategoryPreviewItem from "../components/CategoryPreviewItem";
 import MyCornerRecipeItem from "../components/MyCornerRecipe";
