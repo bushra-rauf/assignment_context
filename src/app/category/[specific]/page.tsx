@@ -23,8 +23,8 @@ const Specific = ({ params }: { params: Promise<{ specific: string }> }) => {
 
     if (isLoading) return <div>is loading...</div>
     return (
-        <div>
-            {mealsData && mealsData.meals?.map(item => <Link href={`/recipes/${item.idMeal}`} key={item.idMeal}>{item.strMeal}</Link>)}
+        <div className="grid grid-rows-1 grid-cols-4 gap-2 mt-2">
+            {mealsData && mealsData.meals?.map(item => <Link className="border border-amber-400" href={`/recipes/${item.idMeal}`} key={item.idMeal}>{item.strMeal}</Link>)}
         </div>
     )
 

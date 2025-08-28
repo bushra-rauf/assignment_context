@@ -1,10 +1,30 @@
-import { ICategories, IMeals, IRecipe } from "@/lib/interfaces";
+import { ICategories, ICountries, IMeals, IRecipe } from "@/lib/interfaces";
 
 export const getAllCategories = async (): Promise<ICategories | null> => {
     try {
         const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
         const data = await res.json();
         return data as ICategories;
+    } catch (e) {
+        return null;
+    }
+}
+
+export const getAllCountries = async () : Promise<ICountries | null> => {
+        try {
+        const res = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+        const data = await res.json();
+        return data as ICountries;
+    } catch (e) {
+        return null;
+    }
+}
+
+export const getMealByCountry = async (specific: string): Promise<IMeals | null> => {
+    try {
+        const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian`);
+        const data = await res.json();  
+        return data as IMeals;
     } catch (e) {
         return null;
     }

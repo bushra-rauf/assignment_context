@@ -9,6 +9,10 @@ export interface ICategories {
     categories: ICategory[]
 }
 
+export interface ICountries {
+    meals: [{strArea:string}]
+}
+
 export interface IMeals {
     meals:IMeal[] | null
 }
