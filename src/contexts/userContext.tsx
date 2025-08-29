@@ -1,11 +1,11 @@
-import { IRecipe } from "@/lib/interfaces";
+import { ICountry, IRecipe } from "@/lib/interfaces";
 import { createContext, useContext, useReducer } from "react";
 
 interface IUser {
     name: string | null,
     favRecipes: IRecipe[],
     favCat: string | null;
-    favCountries: string[]
+    favCountries: ICountry[]
 }
 
 interface IUserContext {
@@ -14,7 +14,7 @@ interface IUserContext {
     addRecipe: (mealIdAndName: IRecipe) => void;
     updateCategory: (cat: string) => void;
     updateName: (name: string) => void;
-    addCountry: (country: string) => void;
+    addCountry: (country: ICountry) => void;
     deleteCountry: (country: string) => void;
 }
 
@@ -25,9 +25,8 @@ type UserActions =
     | { type: 'addRecipe', payload: IRecipe }
     | { type: 'deleteFavRecipe', payload: string }
     | { type: 'name', payload: string }
-    | { type: 'addCountry', payload: string }
+    | { type: 'addCountry', payload: ICountry }
     | { type: 'deleteFavCountry', payload: string }
-
 
 const inititalState: IUser = {
     name: null,
@@ -43,7 +42,7 @@ const reducer = (state: IUser, action: UserActions): IUser => {
         case 'addCountry': return { ...state, favCountries: [...state.favCountries, action.payload] };
         case 'updateCategory': return { ...state, favCat: action.payload };
         case 'deleteFavRecipe': return { ...state, favRecipes: state.favRecipes.filter(item => item.id !== action.payload) }
-        case 'deleteFavCountry': return { ...state, favCountries: state.favCountries.filter(item => item !== action.payload) }
+        case 'deleteFavCountry': return { ...state, favCountries: state.favCountries.filter(item => item.country !== action.payload) }
         default: return state;
     }
 }
@@ -56,7 +55,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     const updateName = (name: string) => dispatch({ type: 'name', payload: name })
     const updateCategory = (cat: string) => dispatch({ type: 'updateCategory', payload: cat })
     const addRecipe = (meal: IRecipe) => dispatch({ type: 'addRecipe', payload: meal })
-    const addCountry = (country: string) => dispatch({ type: 'addCountry', payload: country })
+    const addCountry = (country: ICountry) => dispatch({ type: 'addCountry', payload: country })
     const deleteCountry = (country: string) => dispatch({ type: 'deleteFavCountry', payload: country })
 
     return <UserContext.Provider value={{
@@ -67,7 +66,6 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         updateName: updateName,
         addCountry: addCountry,
         deleteCountry: deleteCountry
-
     }}>{children}</UserContext.Provider>
 }
 

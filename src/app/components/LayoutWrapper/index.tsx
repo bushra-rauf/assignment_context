@@ -12,20 +12,21 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
-
-            {!user.name ?
-               <Login /> :
-                <>
-                    <Header />
-                    <div className="flex flex-col">
-                        <Menu />
-                        <main className="h-full">{children}</main>
-                    </div>
-                </>
-            }
+            <div className="flex flex-col h-full">
+                {!user.name ?
+                    <Login /> :
+                    <>
+                        <Header />
+                        <div className="flex flex-col grow">
+                            <Menu />
+                            <main className="grow flex flex-col">{children}</main>
+                        </div>
+                    </>
+                }
+            </div>
 
         </>
-
+    
     )
 }
 

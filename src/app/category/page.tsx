@@ -15,8 +15,10 @@ const Category = () => {
     }, [])
 
     return (
-        <div className="grid grid-rows-3 grid-cols-3 gap-2 mt-2">
-            {categories && categories.categories.map(item => <CategoryPreviewItem key={item.idCategory} {...item} />)}
+        <div className="bg-gray-600">
+            <div className="grid grid-rows-3 grid-cols-3 gap-2 mt-2 bg-black]">
+                {categories && categories.categories.map(item => <CategoryPreviewItem key={item.idCategory} {...item} />)}
+            </div>
         </div>
     )
 }

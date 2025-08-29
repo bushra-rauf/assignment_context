@@ -13,6 +13,10 @@ export interface ICountries {
     meals: [{strArea:string}]
 }
 
+export interface ICountry {
+    country: string
+}
+
 export interface IMeals {
     meals:IMeal[] | null
 }
