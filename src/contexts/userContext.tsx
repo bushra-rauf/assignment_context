@@ -24,7 +24,7 @@ type UserActions =
     | { type: 'updateCategory', payload: string }
     | { type: 'addRecipe', payload: IRecipe }
     | { type: 'deleteFavRecipe', payload: string }
-    | { type: 'name', payload: string }
+    | { type: 'updateName', payload: string }
     | { type: 'addCountry', payload: ICountry }
     | { type: 'deleteFavCountry', payload: string }
 
@@ -37,7 +37,7 @@ const inititalState: IUser = {
 
 const reducer = (state: IUser, action: UserActions): IUser => {
     switch (action.type) {
-        case 'name': return { ...state, name: action.payload };
+        case 'updateName': return { ...state, name: action.payload };
         case 'addRecipe': return { ...state, favRecipes: [...state.favRecipes, action.payload] };
         case 'addCountry': return { ...state, favCountries: [...state.favCountries, action.payload] };
         case 'updateCategory': return { ...state, favCat: action.payload };
@@ -52,7 +52,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [{ name, favRecipes, favCat, favCountries }, dispatch] = useReducer(reducer, inititalState)
 
     const deleteFavRecipe = (mealID: string) => dispatch({ type: 'deleteFavRecipe', payload: mealID });
-    const updateName = (name: string) => dispatch({ type: 'name', payload: name })
+    const updateName = (name: string) => dispatch({ type: 'updateName', payload: name })
     const updateCategory = (cat: string) => dispatch({ type: 'updateCategory', payload: cat })
     const addRecipe = (meal: IRecipe) => dispatch({ type: 'addRecipe', payload: meal })
     const addCountry = (country: ICountry) => dispatch({ type: 'addCountry', payload: country })
